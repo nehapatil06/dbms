@@ -1,0 +1,59 @@
+SQL> CREATE TABLE Employ(EmpId INT PRIMARY KEY,Name VARCHAR(10),Dept VARCHAR(5), Salary 
+decimal (8,2),City VARCHAR(5)); 
+
+
+SQL> insert into Employ values(1,'Ravi Patil','HR',40000,'Pune'); 
+
+SQL> insert into Employ values(2,'Sneha','IT',60000,'Latur'); 
+
+SQL> insert into Employ values(3,'Payal','ENTC',40000,'Pune'); 
+
+SQL> insert into Employ values(4,'Mansi','MECH',91000,'Latur'); 
+ 
+SQL> insert into Employ values(5,'Shaili','ENTC',40000,'Nagar'); 
+
+SQL> desc Employ 
+
+SQL> select * from Employ; 
+ 
+     EMPID NAME       DEPT      SALARY CITY 
+         1 Ravi Patil HR         40000 Pune 
+         2 Sneha      IT         60000 Latur 
+         3 Payal      ENTC       40000 Pune 
+         4 Mansi      MECH       91000 Latur 
+         5 Shaili     ENTC       40000 Nagar 
+ 
+
+SQL> update Employ set Salary = Salary + (Salary  * 0.10); 
+ 
+ 
+SQL> delete from Employ where Dept = 'IT'; 
+ 
+
+SQL> select * from Employ; 
+ 
+      
+SQL> select * from Employ where Salary>45000; 
+ 
+SQL> select * from Employ where name LIKE 's%'; 
+
+
+SQL>  select * from Employ where name LIKE 'S%'; 
+
+
+SQL> update Employ set Salary = Salary + 2000 where City = 'Latur'; 
+
+
+SQL> select max(Salary) from Employ; 
+
+
+SQL> select avg(Salary) from Employ where Dept = 'HR'; 
+ 
+ 
+SQL> select * from Employ order by Salary desc; 
+ 
+      
+SQL> select sum (Salary) from Employ; 
+ 
+SQL>  select * from Employ where Salary >(select avg(Salary) from Employ); 
+ 

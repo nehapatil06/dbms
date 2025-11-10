@@ -1,0 +1,45 @@
+sql> create table emmpp(
+     Id number(5),
+     Name varchar2(10),
+     joining_date DATE,
+     salary decimal(7,2),
+     dept_id number(5)
+);
+
+
+sql>insert into emmpp values(121,'riya','12-jan-2004',12000,11);
+
+sql>insert into emmpp (Id,Name,joining_date,salary,dept_id)
+values(123,'kiya','13-sep-2004',14000,12);
+sql>insert into emmpp (Id,Name,joining_date,salary,dept_id)
+values(124,'raj','13-jan-2003',16000,14);
+
+
+sql>insert into emmpp values(123,'kiya','12-sep-2004',10000,12);
+
+sql>insert into emmpp values(124,'raj','14-jan-2004',12000,14);
+
+sql>insert into emmpp values(125,'ram','09-jan-2004',16000,16);
+
+sql>insert into emmpp values(100,'rahul','06-jan-2004',11000,13);
+
+sql>select * from emmpp;
+
+sql>select * from emmpp where salary>8000;
+
+sql>select * from emmpp ORDER BY joining_date asc;
+
+sql>UPDATE emmpp SET salary=50000 where Id=100;
+
+sql>DELETE emmpp where Id=123;
+
+sql>select DISTINCT salary from emmpp;
+
+sql>select min(salary) from emmpp;
+
+sql>select max(salary) from emmpp;
+
+sql>select count(ID) from emmpp;
+
+sql>select sum(salary) from emmpp where dept_id=12;
+

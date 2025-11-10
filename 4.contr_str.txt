@@ -1,0 +1,66 @@
+PROGRAM:
+STEP 1:Create a borrower table named “brw”.
+SQL> CREATE TABLE brw(roll_no NUMBER(5) primary key, name VARCHAR2(12), d_of_issue
+DATE, n_of_book VARCHAR2(12), status VARCHAR2(3));
+Table created.
+
+STEP 2:Create a fine table named “br_fine”.
+SQL> CREATE TABLE br_fine(roll_no NUMBER(5) primary key, sdate DATE, amt
+NUMBER(5));
+Table created.
+
+STEP 3: Insert value into brw (i.e borrower) table.
+SQL> INSERT INTO brw VALUES(1,'janvi','07-june-2023','DBMS','I');
+1 row created.
+SQL> INSERT INTO brw VALUES(5,'piyusha','22-SEP-2023','OS','I');
+1 row created.
+SQL> INSERT INTO brw VALUES(3,'pratiksha','16-AUG-2023','CNS','I');
+1 row created.
+
+STEP 4: Create Unnamed PL/SQL code block to control structure and do exception handling .
+SQL> DECLARE
+rno NUMBER(3) := &roll_no;
+bname VARCHAR2(12) := '&n_of_book';
+no_days NUMBER(7);
+issuedate DATE;
+fineamt NUMBER(5) := 0;
+BEGIN
+SELECT d_of_issue INTO issuedate FROM brw WHERE roll_no= rno;
+SELECT sysdate - to_date(issuedate) days INTO no_days FROM dual;
+IF (no_days >=15 AND no_days<=30) THEN
+fineamt:= no_days*5;
+ELSIF no_days > 30 THEN
+fineamt := no_days*50;
+END IF;
+UPDATE brw SET status ='R' WHERE roll_no=rno;
+IF fineamt>=0 THEN
+INSERT INTO br_fine VALUES(rno,sysdate,fineamt);
+END IF;
+EXCEPTION
+WHEN no_data_found THEN
+dbms_output.put_line('Record not found');
+END;
+/
+
+Enter value for roll_no: 1
+old 2: rno NUMBER(3) := &roll_no;
+new 2: rno NUMBER(3) := 1;
+Enter value for n_of_book: DBMS
+old 3: bname VARCHAR2(12) := '&n_of_book';
+new 3: bname VARCHAR2(12) := 'DBMS';
+PL/SQL procedure successfully completed.
+
+STEP 5: Display fine table to check whether fine amt is inserted in table or not.
+SQL> Select * from br_fine;
+ROLL_NO SDATE AMT
+---------- --------- ----------
+1 24-SEP-24 23750
+
+STEP 6: Display fine table to check whether after submitting the book, status will change from I
+to R or not
+SQL> Select * from brw;
+ROLL_NO NAME D_OF_ISSU N_OF_BOOK STA
+---------- ------------ --------- ------------ ---
+1 janvi 07-JUN-23 DBMS R
+5 piyusha 22-SEP-23 OS I
+3 pratiksha 16-AUG-23 CNS I

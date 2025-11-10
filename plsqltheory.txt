@@ -1,0 +1,17 @@
+PL/SQL stands for Procedural Language extension of SQL. It was developed by Oracle Corporation in the late 1980s to enhance the capabilities of SQL. It is the procedural extension language for SQL.
+DECLARE
+   Declaration statements;
+BEGIN
+   Execution statements;
+ EXCEPTION
+      Exception handling statements;
+END;
+/
+
+Advantages of PL/SQL:
+1. PL/SQL is a procedural language.
+2. PL/SQL is a block structure language.
+3. PL/SQL handles the exceptions.
+4. PL/SQL engine can process multiple SQL statements simultaneously as a single block hence reducing network traffic and providing better performance.
+
+DBMS_OUTPUT.PUT_LINE is a procedure in Oracle’s PL/SQL that allows developers to display output from PL/SQL blocks, procedures, functions, packages, and triggers. It’s part of the DBMS_OUTPUT package, which provides a way for PL/SQL programs to communicate with the outside world in a simple manner. This is especially useful during development and debugging phases, where developers need to inspect values of variables, parameters, or to trace the execution flow of the PL/SQL code.

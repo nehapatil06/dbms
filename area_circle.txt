@@ -1,0 +1,18 @@
+sql>create table cirln(radius number(5),area number(14,2));
+ 
+sql>declare
+  2  r number(5);
+  3  ar number(14,2);
+  4  pi constant number(4,2):=3.14;
+  5  begin
+  6  r:=5;
+  7  while r<=9
+  8  loop
+  9  ar:=pi*power(r,2);
+ 10  insert into cirln values(r,ar);
+ 11  r:=r+1;
+ 12  end loop;
+ 13  end;
+ 14  /
+
+sql>select *from cirln;

@@ -1,0 +1,52 @@
+PROGRAM:
+
+STEP 1:Create a Stud_Marks table named  “std_name”.
+SQL> CREATE TABLE std_name(roll_no NUMBER(5) primary key, name VARCHAR2(12), total_marks NUMBER(5));
+
+Table created.
+
+STEP 2:Create a Result table named  “std_res”.
+SQL> CREATE TABLE std_res(roll_no NUMBER(5) primary key, name VARCHAR2(12), class VARCHAR2(20));
+
+Table created.
+
+STEP 3: Create Named PL/SQL Block to Stored Procedure namely pro_Grade for the categorization of students .
+
+SQL> CREATE OR REPLACE PROCEDURE pro_Grade(rno NUMBER, name VARCHAR2, marks NUMBER) IS
+class VARCHAR2(20);
+  
+BEGIN
+IF (marks <= 1500 AND marks >= 990) then
+class := 'Destination';
+ELSIF (marks <= 989 AND marks >= 900) then
+class := 'First';
+ELSIF (marks <= 899 AND marks >= 825) then
+class := 'Higher second';
+END IF;
+
+INSERT INTO std_name VALUES(rno, name, marks);
+INSERT INTO std_res VALUES(rno, name, class);
+END;
+ /
+
+Procedure created.
+
+STEP 4: Executing procedure pro_Grade with student info.
+SQL> exec pro_Grade(1,'janvi',1300);
+
+PL/SQL procedure successfully completed.
+
+STEP 5:  Display std_name table to check whether the total marks obtained by students are stored or not.
+SQL> SELECT *FROM std_name;
+
+   ROLL_NO NAME         TOTAL_MARKS
+---------- ------------ -----------
+         1 janvi               1300
+
+STEP 6: Display std_res table to check whether after entering the total marks obtained by student, class is assigned or not.
+SQL> SELECT *FROM std_res;
+
+   ROLL_NO NAME         CLASS
+---------- ------------ --------------------
+         1 janvi        Destination
+

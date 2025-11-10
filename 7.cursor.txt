@@ -1,0 +1,76 @@
+PROGRAM:
+
+STEP 1:Create a O_RollCall table .
+SQL>  CREATE TABLE O_RollCall(roll NUMBER(3) PRIMARY KEY, name VARCHAR(20));
+Table created.
+
+STEP 2: Insert values into O_RollCall table.
+SQL> INSERT INTO O_RollCall(roll,name) VALUES(1,'Ajay');
+1 row created.
+SQL> INSERT INTO O_RollCall(roll,name) VALUES(3,'Janvi');
+1 row created.
+SQL> INSERT INTO O_RollCall(roll,name) VALUES(21,'Deep');
+1 row created.
+SQL> SELECT *FROM O_RollCall;
+      ROLL NAME
+---------- --------------------
+         1 Ajay
+         3 Janvi
+        21 Deep
+
+STEP 3: Create a N_RollCall table
+SQL> CREATE TABLE N_RollCall(roll NUMBER(3) PRIMARY KEY, name VARCHAR(20));
+Table created.
+
+STEP 4: Insert values into N_RollCall table.
+SQL> INSERT INTO N_RollCall(roll,name) VALUES(1,'Ajay');
+1 row created.
+SQL> INSERT INTO N_RollCall(roll,name) VALUES(3,'Janvi');
+1 row created.
+SQL> INSERT INTO N_RollCall(roll,name) VALUES(13,'Supriya');
+1 row created.
+SQL> SELECT *FROM N_RollCall;
+      ROLL NAME
+---------- --------------------
+         1 Ajay
+         3 Janvi
+        13 Supriya
+STEP 5: Create a PL/SQL block of code using parameterized Cursor that will merge the data available in the newly created table N_RollCall with the data available in the table O_RollCall.
+SQL> DECLARE
+  CURSOR cur1 IS
+  SELECT roll, name FROM O_RollCall;
+  
+  CURSOR cur2 IS
+  SELECT roll FROM N_RollCall;
+  
+  r NUMBER(3);
+  rno NUMBER(3);
+  nm VARCHAR(20);
+ 
+  BEGIN
+  OPEN cur1;
+  OPEN cur2;
+  LOOP
+  FETCH cur1 INTO rno,nm;
+  FETCH cur2 INTO r;
+  EXIT WHEN cur1 %FOUND= FALSE;
+  IF r<> rno THEN
+  INSERT INTO N_RollCall VALUES(rno,nm);
+  END IF;
+ 
+  END LOOP;
+  CLOSE cur1;
+  END;
+   /
+
+PL/SQL procedure successfully completed.
+
+STEP 6: Display N_RollCall table to check whether merge data available in the newly created table N_RollCall with the data available in the table O_RollCall or not.
+SQL> SELECT *FROM N_RollCall;
+
+      ROLL NAME
+---------- --------------------
+         1 Ajay
+         3 Janvi
+        13 Supriya
+        21 Deep
