@@ -1,0 +1,59 @@
+CREATE TABLE Employees (
+    EmpID INT PRIMARY KEY,
+    Name VARCHAR(30),
+    Department VARCHAR(10),
+    Salary DECIMAL(8,2),
+    City VARCHAR(10)
+);
+
+
+INSERT INTO Employees VALUES (1, 'Ravi Patil', 'HR', 40000, 'Pune');
+INSERT INTO Employees VALUES (2, 'Sneha Joshi', 'IT', 60000, 'Mumbai');
+INSERT INTO Employees VALUES (3, 'Amit Kulkarni', 'Finance', 55000, 'Nashik');
+INSERT INTO Employees VALUES (4, 'Kiran Desai', 'IT', 50000, 'Pune');
+INSERT INTO Employees VALUES (5, 'Meena Shah', 'HR', 45000, 'Mumbai');
+
+
+SELECT * FROM Employees;
+
+UPDATE Employees
+SET Salary = Salary * 1.10
+WHERE Department = 'IT';
+
+
+DELETE FROM Employees
+WHERE Department = 'Finance';
+
+SELECT * FROM Employees
+WHERE Salary > 50000;
+
+SELECT * FROM Employees
+WHERE Name LIKE 'S%';
+
+SELECT DISTINCT Department
+FROM Employees;
+
+UPDATE Employees
+SET Salary = Salary + 2000
+WHERE City = 'Pune';
+
+SELECT MAX(Salary) AS Highest_Salary
+FROM Employees;
+
+SELECT AVG(Salary) AS Avg_HR_Salary
+FROM Employees
+WHERE Department = 'HR';
+
+SELECT * FROM Employees
+ORDER BY Salary DESC;
+
+SELECT SUM(Salary) AS Total_Salary
+FROM Employees;
+
+SELECT Department, COUNT(*) AS Total_Employees
+FROM Employees
+GROUP BY Department;
+
+SELECT Name, Department, Salary
+FROM Employees
+WHERE Salary > (SELECT AVG(Salary) FROM Employees);
