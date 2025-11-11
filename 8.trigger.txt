@@ -18,6 +18,6 @@ SQL> create or replace trigger tr1
   2  before update or delete on library
   3  for each row
   4  begin
-  5  insert into library audit values(:new.bno,:.allowed_days,:allowed days);
+  5  insert into library audit values(:old.bno,:old.allowed_days,:new.allowed days);
   6  end;
   7  /
